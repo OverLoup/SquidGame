@@ -38,7 +38,7 @@ public class ScoreBoard {
 
 		if (timer) {
 			Team time = board.registerNewTeam("timer");
-			time.setPrefix("§7➡ Time Left: ");
+			time.setPrefix("§7➜ Time Left: ");
 			time.setSuffix("§c6:00");
 			time.addEntry(ChatColor.AQUA.toString());
 			obj.getScore(ChatColor.AQUA.toString()).setScore(0);

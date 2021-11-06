@@ -22,7 +22,6 @@ import com.overloup.squidgame.utilities.ScoreBoard;
 
 public class GlassStepping {
 
-	private static String space = "§7----------------------------";
 	private static ArrayList<Block> breakable = new ArrayList<>();
 	private static ArrayList<Block> leftside = new ArrayList<>();
 	private static ArrayList<Block> rightside = new ArrayList<>();
@@ -86,13 +85,15 @@ public class GlassStepping {
 		NPC.createNPC(new Location(Main.world, 204.5, 64, 97.5, 90f, 0f));
 
 		Main.frontman.getInventory().setItem(4, new ItemStack(Material.GREEN_CONCRETE));
-		Main.frontman.sendMessage(space);
+		Main.frontman.sendMessage("§7----------------------------");
 		Main.frontman.sendMessage("§aGame finished Setup");
 		Main.frontman.sendMessage("§bWhen you are Ready Click the Green Concrete");
-		Main.frontman.sendMessage(space);
+		Main.frontman.sendMessage("§7----------------------------");
 	}
 
 	public static void StartGame() {
+		Bukkit.broadcastMessage("§aThe Round has Started!");
+		
 		final Runnable timer = new Runnable() {
 			@Override
 			public void run() {
@@ -147,10 +148,7 @@ public class GlassStepping {
 		}
 
 		if (Main.participants.isEmpty()) {
-			Main.frontman.sendMessage(space);
-			Main.frontman.sendMessage("§aSquid Game Ended");
-			Main.frontman.sendMessage("§bNo one won");
-			Main.frontman.sendMessage(space);
+			Main.frontman.sendMessage("§aSquid Game Ended. §7No one won :(");
 			return;
 		}
 

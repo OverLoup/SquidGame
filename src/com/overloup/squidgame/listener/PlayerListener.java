@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -59,19 +60,18 @@ public class PlayerListener implements Listener {
 		}
 
 		NPC.onJoin(player);
-
 		ChangeSkin.change(player);
+
 		player.teleport(Main.spawn);
-		player.setSaturation(20f);
-		player.setResourcePack("https://beatingkids.club/images/pack.zip");
+		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
 
 		player.sendMessage("§7-----------------------------------");
 		player.sendMessage("§cIt is incredibly Important that you load the Texture Pack!");
 		player.sendMessage("§bUse §e/resourcepack §bif you denied the Download.");
 		player.sendMessage("§cYou will not be able to play the Game without the Pack!");
 		player.sendMessage("§7-----------------------------------");
-		player.setInvisible(false);
-		event.setJoinMessage("");
+		event.setJoinMessage(
+				"§e" + player.getName() + " §ejoined the Game. [" + Main.participants.size() + "/" + 100 + "]");
 	}
 
 	@EventHandler
@@ -129,6 +129,11 @@ public class PlayerListener implements Listener {
 			return;
 		}
 
+		event.setCancelled(true);
+	}
+	
+	@EventHandler 
+	public void BlockPlace(BlockPlaceEvent event) {
 		event.setCancelled(true);
 	}
 

@@ -55,7 +55,7 @@ public class NPC {
 					conn.sendPacket(new PacketPlayOutPlayerInfo(
 							PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npc));
 				}
-			}.runTaskLater(Main.plugin, 5);
+			}.runTaskLater(Main.plugin, 10);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class NPC {
 					conn.sendPacket(new PacketPlayOutPlayerInfo(
 							PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npc));
 				}
-			}.runTaskLater(Main.plugin, 5);
+			}.runTaskLater(Main.plugin, 10);
 		}
 	}
 

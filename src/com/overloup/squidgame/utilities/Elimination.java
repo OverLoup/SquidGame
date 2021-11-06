@@ -5,12 +5,12 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.overloup.squidgame.Main;
+
 public class Elimination {
 
 	public static void Eliminate(Player player) {
-		Location loc = player.getLocation();
-
-		player.playSound(loc, "squidgame.red_light_green_light.gunshot", 3, 1);
+		player.playSound(player.getLocation(), "squidgame.red_light_green_light.gunshot", 3, 100);
 
 		try {
 			Thread.sleep(500);
@@ -20,28 +20,27 @@ public class Elimination {
 
 		player.damage(20);
 		player.setGameMode(GameMode.SPECTATOR);
-		player.setInvisible(true);
 		Bukkit.broadcastMessage("§e" + player.getName() + "§c was Eliminated");
 
 		try {
-			Thread.sleep(500);
+			Thread.sleep(250);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 		player.spigot().respawn();
-		player.teleport(loc);
+		player.teleport(Main.spawn);
 	}
 
 	public static void PlayShotforEveryone() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.playSound(p.getLocation(), "squidgame.red_light_green_light.gunshot", 3, 1);
+			p.playSound(p.getLocation(), "squidgame.red_light_green_light.gunshot", 3, 100);
 		}
 	}
 
 	public static void PlayShotforEveryone(Location loc) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.playSound(loc, "squidgame.red_light_green_light.gunshot", 3, 1);
+			p.playSound(loc, "squidgame.red_light_green_light.gunshot", 3, 100);
 		}
 	}
 

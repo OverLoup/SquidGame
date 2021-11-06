@@ -75,6 +75,7 @@ public class RedLightGreenLight {
 	}
 
 	public static void StartGame() {
+		Bukkit.broadcastMessage("§aThe Round has Started!");
 		Main.frontman.getInventory().setItem(4, new ItemStack(Material.AIR));
 		Main.frontman.getInventory().setItem(8, new ItemStack(Material.RED_DYE));
 		switchlight(true);

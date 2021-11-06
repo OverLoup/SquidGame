@@ -33,7 +33,7 @@ public class TugofWar {
 
 	public static void Setup() {
 		GameManager.setGame(Game.TUGOFWAR);
-		if (Main.participants.size() < 12) {
+		if (Main.participants.size() < 20) {
 			endGame("NOTENOUGHPPL");
 			return;
 		}
@@ -50,7 +50,7 @@ public class TugofWar {
 
 		Location adminspawn = new Location(Main.world, 53, 45, -39, 179, 37);
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			ScoreBoard.set(p, "§fThug of War", "§fPunch your Enemies of the Bridge", "§for Fall to your own Death",
+			ScoreBoard.set(p, "§fThug of War", "§fPunch your Enemies off the Bridge", "§for Fall to your own Death",
 					false);
 			if (Main.guards.contains(p)) {
 				p.teleport(adminspawn);
@@ -90,7 +90,7 @@ public class TugofWar {
 		Main.world.getBlockAt(53, 38, -32).setType(Material.DARK_OAK_FENCE);
 		Main.world.getBlockAt(52, 38, -33).setType(Material.DARK_OAK_FENCE);
 		Main.world.getBlockAt(53, 38, -33).setType(Material.DARK_OAK_FENCE);
-		
+
 		NPC.createNPC(new Location(Main.world, 49.5, 25, -63.5, 0f, 0f));
 		NPC.createNPC(new Location(Main.world, 46.5, 25, -63.5, 0f, 0f));
 
@@ -104,6 +104,9 @@ public class TugofWar {
 	}
 
 	public static void StartGame() {
+		Bukkit.broadcastMessage("§aThe Round has Started!");
+		Main.frontman.getInventory().setItem(4, new ItemStack(Material.AIR));
+
 		Main.world.getBlockAt(52, 38, -31).breakNaturally();
 		Main.world.getBlockAt(53, 38, -31).breakNaturally();
 		Main.world.getBlockAt(52, 38, -32).breakNaturally();
@@ -122,7 +125,6 @@ public class TugofWar {
 				|| blueAlive.contains(damager) && blueAlive.contains(player)) {
 			event.setCancelled(true);
 		}
-
 		event.setDamage(0);
 	}
 

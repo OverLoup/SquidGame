@@ -13,7 +13,7 @@ public class ResourcePack implements CommandExecutor {
 
 		player.sendMessage("§aLoading Texturepack...");
 		player.sendMessage("§7If nothing happens, please rejoin the Server!");
-		player.setResourcePack("https://beatingkids.club/images/pack.zip");
+		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
 		return true;
 	}
 

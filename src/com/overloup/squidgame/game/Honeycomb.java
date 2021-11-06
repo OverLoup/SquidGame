@@ -43,8 +43,7 @@ public class Honeycomb {
 			locs.add(new Location(Main.world, i, 29, 166));
 		}
 
-		Location spawn = new Location(Main.world, 40, 29, 91);
-		spawn.setYaw(0);
+		Location spawn = new Location(Main.world, 40, 29, 91, 0f, 12f);
 		for (Player p : Main.participants) {
 			p.teleport(spawn);
 			immunity.add(p);
@@ -107,6 +106,8 @@ public class Honeycomb {
 	}
 
 	public static void StartGame() {
+		Bukkit.broadcastMessage("§aThe Round has Started!");
+		Main.frontman.getInventory().setItem(4, new ItemStack(Material.AIR));
 		final Runnable timer = new Runnable() {
 			@Override
 			public void run() {
@@ -142,8 +143,10 @@ public class Honeycomb {
 				p.getInventory().clear();
 
 				ownedblocks.remove(plot.getKey());
-				if (players.isEmpty())
+				if (players.isEmpty()) {
 					endGame();
+				}
+				
 				event.setCancelled(true);
 				return;
 			}

@@ -14,7 +14,7 @@ public class Doll {
 
 	public static void spawn() {
 		Location loc = new Location(world, 111, 29, 19);
-		loc.setYaw(275);
+		loc.setYaw(90);
 		doll = world.spawnEntity(loc, EntityType.ZOMBIE);
 
 		doll.setInvulnerable(true);
