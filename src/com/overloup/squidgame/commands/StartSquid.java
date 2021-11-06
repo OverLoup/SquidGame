@@ -10,6 +10,7 @@ import com.overloup.squidgame.data.GameManager;
 import com.overloup.squidgame.game.GlassStepping;
 import com.overloup.squidgame.game.Honeycomb;
 import com.overloup.squidgame.game.RedLightGreenLight;
+import com.overloup.squidgame.game.SquidGame;
 import com.overloup.squidgame.game.TugofWar;
 
 public class StartSquid implements CommandExecutor {
@@ -35,6 +36,9 @@ public class StartSquid implements CommandExecutor {
 			break;
 		case TUGOFWAR:
 			GlassStepping.Setup();
+			break;
+		case GLASSSTEPPING:
+			SquidGame.Setup();
 			break;
 
 		default:

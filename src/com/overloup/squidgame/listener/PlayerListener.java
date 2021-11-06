@@ -25,6 +25,7 @@ import com.overloup.squidgame.data.GameManager.Game;
 import com.overloup.squidgame.game.GlassStepping;
 import com.overloup.squidgame.game.Honeycomb;
 import com.overloup.squidgame.game.RedLightGreenLight;
+import com.overloup.squidgame.game.SquidGame;
 import com.overloup.squidgame.game.TugofWar;
 import com.overloup.squidgame.utilities.ChangeSkin;
 import com.overloup.squidgame.utilities.Elimination;
@@ -117,6 +118,15 @@ public class PlayerListener implements Listener {
 			}
 		}
 
+		if (GameManager.getGame() == Game.SQUIDGAME && Main.frontman.equals(player)) {
+			if (item.getType().equals(Material.GREEN_CONCRETE)) {
+				SquidGame.StartGame();
+			}
+			if (item.getType().equals(Material.YELLOW_CONCRETE)) {
+				SquidGame.addSword();
+			}
+		}
+
 		if (item.getType().equals(Material.IRON_HORSE_ARMOR) || item.getType().equals(Material.NETHERITE_HOE)) {
 			Elimination.PlayShotforEveryone(player.getLocation());
 		}
@@ -131,8 +141,8 @@ public class PlayerListener implements Listener {
 
 		event.setCancelled(true);
 	}
-	
-	@EventHandler 
+
+	@EventHandler
 	public void BlockPlace(BlockPlaceEvent event) {
 		event.setCancelled(true);
 	}
