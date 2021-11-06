@@ -1,0 +1,13 @@
+name: SquidGame
+main: com.overloup.squidgame.Main
+version: 1.0
+api-version: 1.13
+author: InspectorRex
+description: SquidGame Plugin for ChaosGamingClan
+commands:
+   startsquid:
+      description: Start SquidGame
+      usage: /startsquid
+   resourcepack:
+      description: Load the Resourcepack
+      usage: /resourcepack
