@@ -22,4 +22,4 @@ See the latest release for download and set up instructions.
 
 <h3>Game 5: Squid Game</h3>
 
-![squid game play field](https://imgur.com/p2rGnur.png)
+![squid game play field](https://imgur.com/3q3aN8t.png)
