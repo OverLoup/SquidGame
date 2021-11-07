@@ -36,7 +36,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPreConnect(AsyncPlayerPreLoginEvent event) {
 		if (!GameManager.getGame().equals(Game.LOBBY)) {
-			event.disallow(Result.KICK_FULL, "§cThe Game already Stardet!");
+			event.disallow(Result.KICK_FULL, "§cThe Game already Started!");
 			Main.frontman.sendMessage("§e" + event.getName() + " §atried to join the Running Game");
 		}
 	}
@@ -62,9 +62,8 @@ public class PlayerListener implements Listener {
 
 		NPC.onJoin(player);
 		ChangeSkin.change(player);
-
 		player.teleport(Main.spawn);
-		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
+//		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
 
 		player.sendMessage("§7-----------------------------------");
 		player.sendMessage("§cIt is incredibly Important that you load the Texture Pack!");
@@ -172,6 +171,8 @@ public class PlayerListener implements Listener {
 		if (GameManager.getGame() == Game.GLASSSTEPPING) {
 			GlassStepping.onPlayerDeath(event);
 		}
+
+		event.setDeathMessage("");
 	}
 
 	@EventHandler
@@ -197,11 +198,13 @@ public class PlayerListener implements Listener {
 	}
 
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (GameManager.getGame().equals(Game.TUGOFWAR)) {
-			TugofWar.PvPAction(event);
-			return;
+		if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
+			if (GameManager.getGame().equals(Game.TUGOFWAR)) {
+				TugofWar.PvPAction(event);
+				return;
+			}
+			event.setCancelled(true);
 		}
-		event.setCancelled(true);
 	}
 
 }

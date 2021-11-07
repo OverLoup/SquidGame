@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.overloup.squidgame.Main;
 import com.overloup.squidgame.data.GameManager;
@@ -53,9 +55,15 @@ public class GlassStepping {
 
 		for (int i = 0; i < leftside.size(); i++) {
 			if (Math.random() > 0.5) {
+				breakable.add(leftside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.WEST));
+				breakable.add(leftside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.EAST));
+				breakable.add(leftside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.UP));
 				breakable.add(leftside.get(i).getRelative(BlockFace.UP));
 				breakable.add(leftside.get(i));
 			} else {
+				breakable.add(rightside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.WEST));
+				breakable.add(rightside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.EAST));
+				breakable.add(rightside.get(i).getRelative(BlockFace.UP).getRelative(BlockFace.UP));
 				breakable.add(rightside.get(i).getRelative(BlockFace.UP));
 				breakable.add(rightside.get(i));
 			}
@@ -93,12 +101,12 @@ public class GlassStepping {
 
 	public static void StartGame() {
 		Bukkit.broadcastMessage("§aThe Round has Started!");
-		
+
 		final Runnable timer = new Runnable() {
 			@Override
 			public void run() {
 				time--;
-				if (time < 0) {
+				if (time < 0 || Main.participants.isEmpty()) {
 					endGame();
 				}
 				String update = String.format("%02d:%02d", (time / 60), (time % 60));
@@ -117,8 +125,15 @@ public class GlassStepping {
 			return;
 
 		if (breakable.contains(b)) {
-			b.getRelative(BlockFace.DOWN).breakNaturally();
-			b.breakNaturally();
+			Location loc = p.getLocation();
+			loc.setY(p.getLocation().getY() - 1);
+			p.teleport(loc);
+			b.getRelative(BlockFace.WEST).getRelative(BlockFace.DOWN).setType(Material.AIR);
+			b.getRelative(BlockFace.UP).getRelative(BlockFace.WEST).setType(Material.AIR);
+			b.getRelative(BlockFace.UP).getRelative(BlockFace.EAST).setType(Material.AIR);
+			b.getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).setType(Material.AIR);
+			b.getRelative(BlockFace.DOWN).setType(Material.AIR);
+			b.setType(Material.AIR);
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				player.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 2, 1);
 			}
@@ -129,7 +144,6 @@ public class GlassStepping {
 		Player p = event.getEntity();
 
 		Main.participants.remove(p);
-		players.remove(p);
 		Bukkit.broadcastMessage("§e" + p.getName() + " §chas been Eliminated");
 		p.spigot().respawn();
 		event.setDeathMessage("");

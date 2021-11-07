@@ -26,8 +26,8 @@ public class Main extends JavaPlugin {
 	public static Player frontman;
 	public static ArrayList<Player> guards = new ArrayList<>();
 	public static ArrayList<Player> participants = new ArrayList<>();
-	public static World world = Bukkit.getWorld("world");
-	public static Location spawn = new Location(Main.world, -37, 31, 31);
+	public static World world;
+	public static Location spawn;
 
 	@Override
 	public void onEnable() {
@@ -40,10 +40,13 @@ public class Main extends JavaPlugin {
 		this.getCommand("startsquid").setExecutor(new StartSquid());
 		this.getCommand("resourcepack").setExecutor(new ResourcePack());
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+
+		world = Bukkit.getWorld("world");
+		spawn = new Location(world, -37, 31, 31);
 	}
 
 	@Override
 	public void onDisable() {
-		
+
 	}
 }

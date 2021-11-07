@@ -159,14 +159,16 @@ public class RedLightGreenLight {
 		if (to.getX() != from.getX() || to.getZ() != from.getZ() || !player.isOnGround()) {
 			Main.participants.remove(player);
 			players.remove(player);
-			Main.async.execute(() -> {
-				Elimination.Eliminate(player);
-			});
+			Elimination.Eliminate(player);
 		}
 	}
 
 	public static void endGame() {
 		changeableblocks.clear();
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.stopSound("squidgame.red_light_green_light.start");
+		}
 
 		Bukkit.broadcastMessage("§cThe Game has Ended!");
 		Bukkit.getScheduler().cancelTasks(Main.plugin);
@@ -185,7 +187,7 @@ public class RedLightGreenLight {
 		for (Player p : Main.participants) {
 			p.teleport(Main.spawn);
 		}
-		for(int i = 0; i < 9; i++) {
+		for (int i = 0; i < 9; i++) {
 			Main.frontman.getInventory().setItem(i, new ItemStack(Material.AIR));
 		}
 		Main.frontman.sendMessage("§eUse the /startsquid command to start the next game!");

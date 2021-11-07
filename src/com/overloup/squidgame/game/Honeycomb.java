@@ -146,7 +146,7 @@ public class Honeycomb {
 				if (players.isEmpty()) {
 					endGame();
 				}
-				
+
 				event.setCancelled(true);
 				return;
 			}
@@ -181,10 +181,8 @@ public class Honeycomb {
 		}
 
 		if (block.getType().equals(Material.HONEY_BLOCK)) {
-			Main.async.execute(() -> {
-				Elimination.Eliminate(player);
-				Elimination.PlayShotforEveryone(player.getLocation());
-			});
+			Elimination.Eliminate(player);
+			Elimination.PlayShotforEveryone(player.getLocation());
 			players.remove(player);
 			Main.participants.remove(player);
 			return;

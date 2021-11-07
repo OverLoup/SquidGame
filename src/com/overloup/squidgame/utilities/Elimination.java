@@ -18,8 +18,7 @@ public class Elimination {
 			e.printStackTrace();
 		}
 
-		player.damage(20);
-		player.setGameMode(GameMode.SPECTATOR);
+		player.setHealth(0);
 		Bukkit.broadcastMessage("§e" + player.getName() + "§c was Eliminated");
 
 		try {
@@ -29,6 +28,7 @@ public class Elimination {
 		}
 
 		player.spigot().respawn();
+		player.setGameMode(GameMode.SPECTATOR);
 		player.teleport(Main.spawn);
 	}
 

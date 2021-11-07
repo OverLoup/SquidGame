@@ -22,7 +22,7 @@ public class ChangeSkin {
 				((CraftPlayer) player).getHandle()));
 
 		Property skin = getRandomSkin();
-		if (Main.frontman.equals(player))
+		if (Main.frontman != null && Main.frontman.equals(player))
 			skin = FrontMan();
 		if (Main.guards.contains(player))
 			skin = Guard();
