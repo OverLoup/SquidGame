@@ -160,6 +160,7 @@ public class RedLightGreenLight {
 			Main.participants.remove(player);
 			players.remove(player);
 			Elimination.Eliminate(player);
+			Elimination.PlayShotforEveryone();
 		}
 	}
 

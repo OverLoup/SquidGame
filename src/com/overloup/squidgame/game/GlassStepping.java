@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import com.overloup.squidgame.Main;
 import com.overloup.squidgame.data.GameManager;
@@ -97,6 +95,7 @@ public class GlassStepping {
 		Main.frontman.sendMessage("§aGame finished Setup");
 		Main.frontman.sendMessage("§bWhen you are Ready Click the Green Concrete");
 		Main.frontman.sendMessage("§7----------------------------");
+		Main.frontman.teleport(loc);
 	}
 
 	public static void StartGame() {
@@ -138,6 +137,11 @@ public class GlassStepping {
 				player.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 2, 1);
 			}
 		}
+
+		if (b.getRelative(BlockFace.DOWN).getType().equals(Material.RED_CONCRETE)) {
+			players.remove(p);
+			Bukkit.broadcastMessage("§e" + p.getName() + " §aPassed! §7They can Proceed to the Final Game");
+		}
 	}
 
 	public static void onPlayerDeath(PlayerDeathEvent event) {
@@ -163,7 +167,6 @@ public class GlassStepping {
 
 		if (Main.participants.isEmpty()) {
 			Main.frontman.sendMessage("§aSquid Game Ended. §7No one won :(");
-			return;
 		}
 
 		for (int i = 0; i < 9; i++) {
@@ -173,6 +176,8 @@ public class GlassStepping {
 		for (Player p : Main.participants) {
 			p.teleport(Main.spawn);
 		}
+
+		Main.frontman.sendMessage("§eTo Start the next Game use §a/startsquid");
 		Bukkit.getScheduler().cancelTasks(Main.plugin);
 	}
 

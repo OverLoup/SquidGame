@@ -9,8 +9,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -138,12 +140,14 @@ public class PlayerListener implements Listener {
 			return;
 		}
 
-		event.setCancelled(true);
+		if (!event.getPlayer().isOp())
+			event.setCancelled(true);
 	}
 
 	@EventHandler
 	public void BlockPlace(BlockPlaceEvent event) {
-		event.setCancelled(true);
+		if (!event.getPlayer().isOp())
+			event.setCancelled(true);
 	}
 
 	@EventHandler
@@ -190,6 +194,7 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		if (GameManager.getGame().equals(Game.TUGOFWAR)) {
 			TugofWar.onDeath(event);
@@ -197,14 +202,23 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	@EventHandler
+	public void onDamage(EntityDamageEvent event) {
+		if (event.getCause().equals(DamageCause.FALL))
+			return;
+
+		event.setCancelled(true);
+	}
+
+	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
 			if (GameManager.getGame().equals(Game.TUGOFWAR)) {
 				TugofWar.PvPAction(event);
 				return;
 			}
-			event.setCancelled(true);
 		}
+		event.setCancelled(true);
 	}
 
 }

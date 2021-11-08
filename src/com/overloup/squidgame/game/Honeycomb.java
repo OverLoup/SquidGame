@@ -112,7 +112,7 @@ public class Honeycomb {
 			@Override
 			public void run() {
 				time--;
-				if (time < 0) {
+				if (time < 0 || Main.participants.isEmpty()) {
 					endGame();
 				}
 				String update = String.format("%02d:%02d", (time / 60), (time % 60));
