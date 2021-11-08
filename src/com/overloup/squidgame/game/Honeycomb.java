@@ -42,6 +42,12 @@ public class Honeycomb {
 			locs.add(new Location(Main.world, i, 29, 154));
 			locs.add(new Location(Main.world, i, 29, 166));
 		}
+		
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			// Filter out spectators
+			if (!Main.participants.contains(p) && !Main.guards.contains(p) && Main.frontman.equals(p))
+				p.teleport(new Location(Main.world, 1.5, 46, 114, -90f, 20f));
+		}
 
 		Location spawn = new Location(Main.world, 40, 29, 91, 0f, 12f);
 		for (Player p : Main.participants) {

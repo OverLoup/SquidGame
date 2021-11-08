@@ -23,7 +23,7 @@ import com.overloup.squidgame.utilities.ScoreBoard;
 
 public class TugofWar {
 
-	private static Location spawn = new Location(Main.world, 52.5, 25, -62, -0.3f, 1);
+	private static Location spawn = new Location(Main.world, 53, 25, -62, -0.3f, 1);
 
 	private static ArrayList<Player> redAlive = new ArrayList<>();
 	private static ArrayList<Player> redDead = new ArrayList<>();

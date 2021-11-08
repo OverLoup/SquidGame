@@ -1,8 +1,10 @@
 package com.overloup.squidgame.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -66,7 +68,14 @@ public class GlassStepping {
 				breakable.add(rightside.get(i));
 			}
 		}
+		
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			// Filter out spectators
+			if (!Main.participants.contains(p) && !Main.guards.contains(p) && Main.frontman.equals(p))
+				p.teleport(new Location(Main.world, 201, 64, 99, 90f, 1.7f));
+		}
 
+		Collections.shuffle(Main.participants);
 		int i = 0;
 		for (Player p : Main.participants) {
 			i++;
@@ -152,6 +161,8 @@ public class GlassStepping {
 		p.spigot().respawn();
 		event.setDeathMessage("");
 		p.setPlayerListName(p.getName());
+		p.setGameMode(GameMode.SPECTATOR);
+		p.teleport(new Location(Main.world, 174, 54, 56, 0f, -10f));
 
 		if (Main.participants.isEmpty()) {
 			Bukkit.broadcastMessage("§cTHE GAMES ARE OVER! §7Nobody won :(");
