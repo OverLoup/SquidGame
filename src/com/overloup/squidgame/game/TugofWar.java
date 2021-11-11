@@ -31,9 +31,11 @@ public class TugofWar {
 	private static ArrayList<Player> blueAlive = new ArrayList<>();
 	private static ArrayList<Player> blueDead = new ArrayList<>();
 
+	public static int miniumplayers = 20;
+
 	public static void Setup() {
 		GameManager.setGame(Game.TUGOFWAR);
-		if (Main.participants.size() < 20) {
+		if (Main.participants.size() < miniumplayers) {
 			endGame("NOTENOUGHPPL");
 			return;
 		}

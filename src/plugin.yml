@@ -11,3 +11,6 @@ commands:
    resourcepack:
       description: Load the Resourcepack
       usage: /resourcepack
+   tugofwar:
+      description: Set Minium Players for TugofWar
+      usage: /tugofwar minplayers <number>

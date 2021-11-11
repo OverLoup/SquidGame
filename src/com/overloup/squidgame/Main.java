@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.overloup.squidgame.commands.ResourcePack;
 import com.overloup.squidgame.commands.StartSquid;
+import com.overloup.squidgame.commands.TugofWarsSetting;
 import com.overloup.squidgame.data.GameManager;
 import com.overloup.squidgame.data.GameManager.Game;
 import com.overloup.squidgame.listener.PlayerListener;
@@ -39,6 +40,7 @@ public class Main extends JavaPlugin {
 		GameManager.setGame(Game.LOBBY);
 		this.getCommand("startsquid").setExecutor(new StartSquid());
 		this.getCommand("resourcepack").setExecutor(new ResourcePack());
+		this.getCommand("tugofwar").setExecutor(new TugofWarsSetting());
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
 		world = Bukkit.getWorld("world");

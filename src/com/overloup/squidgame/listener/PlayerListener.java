@@ -10,9 +10,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,6 +33,10 @@ import com.overloup.squidgame.utilities.ChangeSkin;
 import com.overloup.squidgame.utilities.Elimination;
 import com.overloup.squidgame.utilities.NPC;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+
 public class PlayerListener implements Listener {
 
 	@EventHandler
@@ -52,28 +56,33 @@ public class PlayerListener implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
+		NPC.onJoin(player);
+		player.teleport(Main.spawn);
+		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
+		player.sendMessage("§7-----------------------------------");
+		player.sendMessage("§cIt is incredibly Important that you load the Texture Pack!");
+		player.sendMessage("§cYou will not be able to play the Game without the Pack!");
+		BaseComponent msg = new TextComponent("§a§l[Load ResourcePack]");
+		msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/resourcepack"));
+		player.sendMessage(" ");
+		player.spigot().sendMessage((BaseComponent) msg);
+		player.sendMessage("§7-----------------------------------");
+
 		if (player.isOp()) {
 			if (Main.frontman == null) {
 				Main.frontman = player;
+				player.sendMessage("§c§lTugOfWar has a Minium of 20 Players set! 50% of those will Die!");
+				player.sendMessage("§ause §e/tugofwar §aminplayers <number> to Change the Minium Players");
 			} else {
 				Main.guards.add(player);
 			}
 		} else {
 			Main.participants.add(player);
+			event.setJoinMessage(
+					"§e" + player.getName() + " §ejoined the Game. [" + Main.participants.size() + "/" + 100 + "]");
 		}
 
-		NPC.onJoin(player);
 		ChangeSkin.change(player);
-		player.teleport(Main.spawn);
-//		player.setResourcePack("https://beatingkids.club/images/squidpack.zip");
-
-		player.sendMessage("§7-----------------------------------");
-		player.sendMessage("§cIt is incredibly Important that you load the Texture Pack!");
-		player.sendMessage("§bUse §e/resourcepack §bif you denied the Download.");
-		player.sendMessage("§cYou will not be able to play the Game without the Pack!");
-		player.sendMessage("§7-----------------------------------");
-		event.setJoinMessage(
-				"§e" + player.getName() + " §ejoined the Game. [" + Main.participants.size() + "/" + 100 + "]");
 	}
 
 	@EventHandler
